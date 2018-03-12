@@ -68,7 +68,22 @@ db
     newPlot1.gardenerId = newGardener1.id;
     newPlot2.gardenerId = newGardener2.id;
     newPlot3.gardenerId = newGardener3.id;
-    return Promise.all([newPlot1.save(), newPlot2.save(), newPlot3.save()]);
+    return Promise.all([
+      newPlot1.save(),
+      newPlot2.save(),
+      newPlot3.save()]
+    );
+  })
+  .then(() => {
+    return Promise.all([
+      newVegetable1.addPlot(newPlot1),
+      newVegetable1.addPlot(newPlot2),
+      newVegetable1.addPlot(newPlot3),
+      newVegetable2.addPlot(newPlot2),
+      newVegetable3.addPlot(newPlot3),
+      newVegetable3.addPlot(newPlot2),
+      newVegetable3.addPlot(newPlot1)
+    ]);
   })
   .then(() => {
     console.log("Database synced!");
