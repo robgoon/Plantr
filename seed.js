@@ -1,12 +1,21 @@
-const { db } = require('./models');
+const { db, Gardener, Plot, Vegetable } = require("./models");
 
-db.sync({force: true})
+const newGardener = new Gardener({
+  name: "Billy Joe",
+  age: 999
+});
+
+db
+  .sync({ force: true })
   .then(() => {
-    console.log('Database synced!')
-    db.close()
+    newGardener.save();
+  })
+  .then(() => {
+    console.log("Database synced!");
+    db.close();
   })
   .catch(err => {
-    console.log('Disaster! Something went wrong! ')
-    console.log(err)
-    db.close()
-  })
+    console.log("Disaster! Something went wrong! ");
+    console.log(err);
+    db.close();
+  });
